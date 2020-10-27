@@ -40,6 +40,7 @@ public class Executor {
     }
     Statement stmt=null;
     ResultSet res=null;
+
     public ResultSet submit(String query) throws SQLException {
         stmt = conn.createStatement();
         res = stmt.executeQuery(query);
