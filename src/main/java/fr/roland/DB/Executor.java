@@ -15,11 +15,14 @@ public class Executor {
         return this.conn;
     }
     public Executor(){
-
     }
 
     public Executor(String connect) throws SQLException {
         conn = getConnection(connect);
+    }
+
+    public Executor(Connection connect){
+        this.conn = connect;
     }
 
     public Executor(ArrayList params) throws SQLException {
@@ -85,7 +88,25 @@ public class Executor {
         return dateString;
     }
 
-    public void insert(String Destination, ArrayList<Object> data) throws SQLException {
+    public ResultSet executePreparedSelect(String SQLToExecute, ArrayList<Object> data) throws SQLException {
+        PreparedStatement pst = conn.prepareStatement(SQLToExecute);
+        int i=1;
+        for (Object o : data) {
+            if (o instanceof Integer) {
+                pst.setInt(i++, (Integer) o );
+            }
+            if (o instanceof String) {
+                pst.setString(i++, (String)o );
+            }
+            if (o instanceof Double) {
+                pst.setDouble(i++, (Double)o );
+            }
+        }
+       return pst.executeQuery();
+
+    };
+
+    public void insertPrepared(String Destination, ArrayList<Object> data) throws SQLException {
         PreparedStatement pst = conn.prepareStatement(insertBuilder(Destination,data));
         int i=1;
 
@@ -121,9 +142,6 @@ public class Executor {
         cstml.execute();
         System.out.println("Total price for order" +"is $"+cstml.getString(4));
     }
-
-
-
     public void executeStored(String Stored, Map<Object, Object> Input) {
         try {
             String call = "{call "+Stored+prepareforSrored(Input)+"}";
