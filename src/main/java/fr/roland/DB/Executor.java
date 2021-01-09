@@ -20,7 +20,9 @@ public class Executor {
     public Executor(String connect) throws SQLException {
         conn = getConnection(connect);
     }
-
+    public Executor(String toConnect, String user, String pass) throws SQLException {
+        conn = getConnection(toConnect, user, pass);
+    }
     public Executor(Connection connect){
         this.conn = connect;
     }
