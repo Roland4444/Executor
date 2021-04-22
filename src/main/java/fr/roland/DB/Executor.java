@@ -20,7 +20,9 @@ public class Executor {
     public Executor(String connect) throws SQLException {
         conn = getConnection(connect);
     }
-    public Executor(String toConnect, String user, String pass) throws SQLException {
+    public Executor(String toConnect, String user, String pass) throws SQLException, ClassNotFoundException {
+        Class.forName("com.mysql.cj.jdbc.Driver");
+
         conn = getConnection(toConnect, user, pass);
     }
     public Executor(Connection connect){
