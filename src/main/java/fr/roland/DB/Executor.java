@@ -124,6 +124,9 @@ public class Executor {
             if (o instanceof Double) {
                 pst.setDouble(i++, (Double)o );
             }
+            if (o instanceof java.sql.Date) {
+                pst.setDate(i++, (java.sql.Date) o);
+            }
         }
         pst.execute();
     }
