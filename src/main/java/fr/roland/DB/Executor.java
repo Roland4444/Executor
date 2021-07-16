@@ -125,7 +125,7 @@ public class Executor {
                 pst.setDouble(i++, (Double)o );
             }
         }
-        pst.executeUpdate();
+        pst.execute();
     }
 
     public String prepareforSrored(Map<Object, Object> InputStr ){
